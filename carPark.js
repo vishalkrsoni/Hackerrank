@@ -19,15 +19,15 @@ class ParkingLot {
     else return `Parking full`
   }
 
-  getSlots() {
+  getSlots = () => {
     let emptySlots = []
     Object.entries(this.slots).forEach(([key, value]) => { if (value == null) emptySlots.push(key) })
     return emptySlots.length != 0 ? `Empty slots : ${emptySlots} ` : `All slots are full`
   }
-  see(){
-    return this.slots
-  }
-  remove(carId) {
+
+  see = () => this.slots
+
+  remove = (carId) => {
     if (!Object.values(this.slots).includes(carId)) return `No Such car parked`
     else {
       let serial = Object.keys(this.slots).find(s => this.slots[s] === carId);
