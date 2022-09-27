@@ -6,6 +6,7 @@ class ParkingLot {
     for (let i = 1; i <= slots; i++) obj[i] = null
     this.slots = obj
   }
+
   park(carId) {
     this.carId = carId
     this.arr = []
@@ -17,16 +18,28 @@ class ParkingLot {
     }
     else return `Parking full`
   }
+
   getSlots() {
-    return `Empty slots: ${this.arr}, Count : ${this.arr.length}`
+    let emptySlots = []
+    Object.entries(this.slots).forEach(([key, value]) => { if (value == null) emptySlots.push(key) })
+    return emptySlots.length != 0 ? `Empty slots : ${emptySlots} ` : `All slots are full`
+  }
+  see(){
+    return this.slots
   }
   remove(carId) {
-    let serial = Object.keys(this.slots).find(s => this.slots[s] === carId);
-    let carNum = this.slots[serial]
-    this.slots[serial] = null
-    return `Removed from slot : ${serial} ---> ${carNum}`
+    if (!Object.values(this.slots).includes(carId)) return `No Such car parked`
+    else {
+      let serial = Object.keys(this.slots).find(s => this.slots[s] === carId);
+      let carNum = this.slots[serial]
+      this.slots[serial] = null
+      return `Removed from slot : ${serial} ---> ${carNum}`
+    }
   }
+
+
 }
+
 let parking = new ParkingLot(7)
 console.log(parking.park(102))
 console.log(parking.park(112))
@@ -34,17 +47,26 @@ console.log(parking.park(122))
 console.log(parking.park(132))
 console.log(parking.getSlots())
 console.log(parking.remove(122))
-console.log(parking.remove(102))
+// console.log(parking.remove(102))
+console.log(parking.remove(132))
+console.log(parking.remove(112))
 console.log(parking.getSlots())
-
-console.log(parking.park(166))
-console.log(parking.park(161))
-console.log(parking.park(116))
-console.log(parking.park(190))
-console.log(parking.park(187))
-console.log(parking.park(184))
 console.log(parking.remove(161))
-console.log(parking.getSlots())
+console.log(parking.park(10))
+console.log(parking.park(12))
+console.log(parking.park(22))
+console.log(parking.park(32))
+console.log(parking.park(192))
+console.log(parking.park(152))
+console.log(parking.park(101))
+console.log(parking.remove(192))
+console.log(parking.see())
+console.log(parking.remove(10))
+console.log(parking.see())
+
+
+//console.log(parking.park(133))
+//console.log(parking.park(132))
 
 
 
