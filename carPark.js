@@ -1,4 +1,7 @@
 // Parking Problem
+
+const PromptSync = require("prompt-sync")
+
 class ParkingLot {
   constructor(slots) {
     this.total = slots
@@ -7,12 +10,12 @@ class ParkingLot {
     this.slots = obj
   }
 
-  park(carId) {
+  park = (carId) => {
     this.carId = carId
-    this.arr = []
-    Object.entries(this.slots).forEach(([key, value]) => { if (value == null) this.arr.push(key) })
-    let min = Math.min(...this.arr)
-    if (this.arr.length > 0) {
+    this.vacant = []
+    Object.entries(this.slots).forEach(([key, value]) => { if (value == null) this.vacant.push(key) })
+    let min = Math.min(...this.vacant)
+    if (this.vacant.length > 0) {
       this.slots[min] = carId
       return `Parked at slot : ${min} ---> ${this.carId}`
     }
@@ -25,10 +28,10 @@ class ParkingLot {
     return emptySlots.length != 0 ? `Empty slots : ${emptySlots} ` : `All slots are full`
   }
 
-  see = () => this.slots
+  seeParking = () => this.slots
 
   remove = (carId) => {
-    if (!Object.values(this.slots).includes(carId)) return `No Such car parked`
+    if (!Object.values(this.slots).includes(carId)) return `No Such car parked`;
     else {
       let serial = Object.keys(this.slots).find(s => this.slots[s] === carId);
       let carNum = this.slots[serial]
@@ -36,37 +39,51 @@ class ParkingLot {
       return `Removed from slot : ${serial} ---> ${carNum}`
     }
   }
-
-
 }
 
-let parking = new ParkingLot(7)
-console.log(parking.park(102))
-console.log(parking.park(112))
-console.log(parking.park(122))
-console.log(parking.park(132))
-console.log(parking.getSlots())
-console.log(parking.remove(122))
-// console.log(parking.remove(102))
-console.log(parking.remove(132))
-console.log(parking.remove(112))
-console.log(parking.getSlots())
-console.log(parking.remove(161))
-console.log(parking.park(10))
-console.log(parking.park(12))
-console.log(parking.park(22))
-console.log(parking.park(32))
-console.log(parking.park(192))
-console.log(parking.park(152))
-console.log(parking.park(101))
-console.log(parking.remove(192))
-console.log(parking.see())
-console.log(parking.remove(10))
-console.log(parking.see())
+// const carPark = (size) => {
+//   let parking = new ParkingLot(size)
+
+//     const prompt = require("prompt-sync")();
+//     const option = parseInt(prompt(' 1.See Parking 2.Park your car 3.Car Exit 4.See Empty slots'));
+//     switch (option) {
+//       case 1:
+//         parking.seeParking();
+//         break;
+//       case 2:
+//         console.log('option 2')
+
+//         break;
+//       default:
+//         console.log('Invalid option')
+//          break;
+//     }
+  
+// }
+
+// console.log(carPark(10))
+//carPark(12)
 
 
-//console.log(parking.park(133))
-//console.log(parking.park(132))
-
-
-
+// let parking = new ParkingLot(7)
+// console.log(parking.park(102))
+// console.log(parking.park(112))
+// console.log(parking.park(122))
+// console.log(parking.park(132))
+// console.log(parking.getSlots())
+// console.log(parking.remove(122))
+// console.log(parking.remove(132))
+// console.log(parking.remove(112))
+// console.log(parking.getSlots())
+// console.log(parking.remove(161))
+// console.log(parking.park(10))
+// console.log(parking.park(12))
+// console.log(parking.park(22))
+// console.log(parking.park(32))
+// console.log(parking.park(192))
+// console.log(parking.park(152))
+// console.log(parking.park(101))
+// console.log(parking.remove(192))
+// console.log(parking.seeParking())
+// console.log(parking.remove(10))
+// console.log(parking.seeParking())
