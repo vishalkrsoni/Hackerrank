@@ -87,7 +87,7 @@ Enter your carId :`)
 }
 
 //console.log(carPark(10))
-carPark(5)
+carPark(7)
 
 
 // let parking = new ParkingLot(7)
