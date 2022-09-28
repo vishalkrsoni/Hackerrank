@@ -1,7 +1,6 @@
 // Parking Problem
 class ParkingLot {
   constructor(slots) {
-    //this.slots = slots
     let obj = {}
     for (let i = 1; i <= slots; i++) obj[i] = null
     this.slots = obj
@@ -28,6 +27,12 @@ class ParkingLot {
 
   seeParking = () => this.slots
 
+  checkSlot = (carId) => {
+    let result = null
+    if (Object.values(this.slots).includes(carId))
+      Object.entries(this.slots).forEach(([key, value]) => { if (value == carId) result = key })
+    return `Your Car is parked at slot : ${result}`
+  }
   remove = (carId) => {
     if (!Object.values(this.slots).includes(carId)) return `No Such car parked`;
     else {
@@ -41,7 +46,6 @@ class ParkingLot {
 
 const carPark = (size) => {
   let parking = new ParkingLot(size);
-
   const prompt = require("prompt-sync")();
   while (true) {
     console.log(`
@@ -53,7 +57,8 @@ Enter your carId :`)
 2. Car Exit 
 3. See Parking 
 4. Check Empty slots
-5. Close
+5. Check your slot
+6. Close
 `));
     switch (option) {
       case 1:
@@ -69,6 +74,9 @@ Enter your carId :`)
         console.log(parking.getSlots())
         break;
       case 5:
+        console.log(parking.checkSlot(carId))
+        break;
+      case 6:
         console.log(`Thanks! Visit Again!!!`)
         return;
       default:
