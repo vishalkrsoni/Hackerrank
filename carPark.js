@@ -1,7 +1,4 @@
 // Parking Problem
-
-const PromptSync = require("prompt-sync")
-
 class ParkingLot {
   constructor(slots) {
     this.total = slots
