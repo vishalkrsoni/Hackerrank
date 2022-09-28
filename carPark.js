@@ -1,7 +1,7 @@
 // Parking Problem
 class ParkingLot {
   constructor(slots) {
-    this.total = slots
+    //this.slots = slots
     let obj = {}
     for (let i = 1; i <= slots; i++) obj[i] = null
     this.slots = obj
@@ -9,10 +9,11 @@ class ParkingLot {
 
   park = (carId) => {
     this.carId = carId
-    this.vacant = []
-    Object.entries(this.slots).forEach(([key, value]) => { if (value == null) this.vacant.push(key) })
-    let min = Math.min(...this.vacant)
-    if (this.vacant.length > 0) {
+    let vacant = []
+    if (Object.values(this.slots).includes(carId)) return `Car already parked`
+    Object.entries(this.slots).forEach(([key, value]) => { if (value == null) vacant.push(key) })
+    let min = Math.min(...vacant)
+    if (vacant.length > 0) {
       this.slots[min] = carId
       return `Parked at slot : ${min} ---> ${this.carId}`
     }
@@ -38,28 +39,47 @@ class ParkingLot {
   }
 }
 
-// const carPark = (size) => {
-//   let parking = new ParkingLot(size)
+const carPark = (size) => {
+  let parking = new ParkingLot(size);
 
-//     const prompt = require("prompt-sync")();
-//     const option = parseInt(prompt(' 1.See Parking 2.Park your car 3.Car Exit 4.See Empty slots'));
-//     switch (option) {
-//       case 1:
-//         parking.seeParking();
-//         break;
-//       case 2:
-//         console.log('option 2')
+  const prompt = require("prompt-sync")();
+  while (true) {
+    console.log(`
+Welcome!! 
+Enter your carId :`)
+    let carId = parseInt(prompt());
+    const option = parseInt(prompt(`
+1. Park your car 
+2. Car Exit 
+3. See Parking 
+4. Check Empty slots
+5. Close
+`));
+    switch (option) {
+      case 1:
+        console.log(parking.park(carId))
+        break;
+      case 2:
+        console.log(parking.remove(carId))
+        break;
+      case 3:
+        console.log(parking.seeParking());
+        break;
+      case 4:
+        console.log(parking.getSlots())
+        break;
+      case 5:
+        console.log(`Thanks! Visit Again!!!`)
+        return;
+      default:
+        console.log('Invalid option')
+        break;
+    }
+  }
+}
 
-//         break;
-//       default:
-//         console.log('Invalid option')
-//          break;
-//     }
-  
-// }
-
-// console.log(carPark(10))
-//carPark(12)
+//console.log(carPark(10))
+carPark(5)
 
 
 // let parking = new ParkingLot(7)
