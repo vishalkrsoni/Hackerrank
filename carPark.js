@@ -9,7 +9,8 @@ class ParkingLot {
   park = (carId) => {
     this.carId = carId
     let vacant = []
-    if (Object.values(this.slots).includes(carId)) return `Car already parked`
+    if (Object.values(this.slots).includes(carId))
+      return `Car already parked`
     Object.entries(this.slots).forEach(([key, value]) => { if (value == null) vacant.push(key) })
     let min = Math.min(...vacant)
     if (vacant.length > 0) {
@@ -33,8 +34,10 @@ class ParkingLot {
       Object.entries(this.slots).forEach(([key, value]) => { if (value == carId) result = key })
     return `Your Car is parked at slot : ${result}`
   }
+
   remove = (carId) => {
-    if (!Object.values(this.slots).includes(carId)) return `No Such car parked`;
+    if (!Object.values(this.slots).includes(carId))
+      return `No Such car parked`;
     else {
       let serial = Object.keys(this.slots).find(s => this.slots[s] === carId);
       let carNum = this.slots[serial]
@@ -68,7 +71,7 @@ Enter your carId :`)
         console.log(parking.remove(carId))
         break;
       case 3:
-        console.log(parking.seeParking());
+        console.log(parking.seeParking())
         break;
       case 4:
         console.log(parking.getSlots())
